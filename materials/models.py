@@ -24,6 +24,7 @@ class Lesson(models.Model):
     description = models.TextField(**NULLABLE, verbose_name='Описание урока', help_text='Введите описание урока')
     preview = models.ImageField(upload_to='materials/lesson', **NULLABLE, verbose_name='Картинка урока',
                                 help_text='Загрузите картинку урока')
+    link = models.CharField(max_length=150, **NULLABLE, verbose_name='Ссылка', help_text='Добавьте ссылку на видео')
 
     def __str__(self):
         return self.name
