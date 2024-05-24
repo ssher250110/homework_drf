@@ -28,8 +28,8 @@ class Payment(models.Model):
         TRANSFER = 'TF', 'Transfer'
         CASH = 'CH', 'Cash'
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Имя пользователя',
-                             help_text='Выберите имя пользователя')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Адрес электронной почты пользователя',
+                             help_text='Выберите адрес электронной почты пользователя')
     date_payment = models.DateTimeField(auto_now_add=True, verbose_name='Дата платежа')
     paid_course = models.ForeignKey(Course, **NULLABLE, on_delete=models.CASCADE, verbose_name='Оплаченный курс',
                                     help_text='Выберите название оплаченного курса')
