@@ -41,8 +41,8 @@ class Payment(models.Model):
                                       verbose_name='Способ оплаты', help_text='Выберите способ оплаты')
 
     def __str__(self):
-        return (f'{self.user} - {self.date_payment}\n{self.paid_course if self.paid_course else self.paid_lesson}\n'
-                f'{self.method_payment} - {self.amount_payment}')
+        return (f'{self.user} - {self.date_payment} - {self.paid_course if self.paid_course else self.paid_lesson}'
+                f'- {self.method_payment} - {self.amount_payment}')
 
     class Meta:
         verbose_name = 'Платеж'
