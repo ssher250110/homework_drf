@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 NULLABLE = {'blank': True, 'null': True}
@@ -8,6 +9,8 @@ class Course(models.Model):
     description = models.TextField(**NULLABLE, verbose_name='Описание курса', help_text='Введите описание курса')
     preview = models.ImageField(upload_to='materials/course', **NULLABLE, verbose_name='Картинка курса',
                                 help_text='Загрузите картинку курса')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец',
+                              help_text='Укажите владельца курса')
 
     def __str__(self):
         return self.name
@@ -25,6 +28,8 @@ class Lesson(models.Model):
     preview = models.ImageField(upload_to='materials/lesson', **NULLABLE, verbose_name='Картинка урока',
                                 help_text='Загрузите картинку урока')
     link = models.CharField(max_length=150, **NULLABLE, verbose_name='Ссылка', help_text='Добавьте ссылку на видео')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец',
+                              help_text='Укажите владельца урока')
 
     def __str__(self):
         return self.name
