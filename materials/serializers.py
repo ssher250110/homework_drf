@@ -32,6 +32,3 @@ class SubscribeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscribe
         fields = '__all__'
-        validators = [
-            SubscribeValidators(),
-        ]
