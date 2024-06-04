@@ -64,3 +64,18 @@ class LessonTestCase(APITestCase):
         self.assertEqual(
             Lesson.objects.all().count(), 2
         )
+
+    def test_lesson_update(self):
+        url = reverse('materials:lesson-update', args=(self.lesson.pk,))
+        data = {
+            'name': 'Go'
+        }
+        response = self.client.patch(url, data)
+        data = response.json()
+
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK
+        )
+        self.assertEqual(
+            data.get('name'), 'Go'
+        )
