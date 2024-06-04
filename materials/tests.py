@@ -10,6 +10,7 @@ class LessonTestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create(email='admin@admin.com')
         self.client.force_authenticate(user=self.user)
+        self.course = Course.objects.create(name='Python')
         self.lesson = Lesson.objects.create(name='Telegram bot')
 
     def test_lesson_list(self):
@@ -49,4 +50,14 @@ class LessonTestCase(APITestCase):
         )
         self.assertEqual(
             data.get('name'), self.lesson.name
+        )
+
+    def test_lesson_create(self):
+        url = reverse('materials:lesson-create')
+        data = {
+            'name': 'scheduler'
+        }
+        response = self.client.post(url, data)
+        self.assertEqual(
+            response.status_code, status.HTTP_201_CREATED
         )

@@ -28,7 +28,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
 
 class LessonSerializer(serializers.ModelSerializer):
-    link = serializers.CharField(validators=[validate_link])
+    link = serializers.CharField(validators=[validate_link], read_only=True)
 
     class Meta:
         model = Lesson
