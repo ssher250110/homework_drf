@@ -61,3 +61,6 @@ class LessonTestCase(APITestCase):
         self.assertEqual(
             response.status_code, status.HTTP_201_CREATED
         )
+        self.assertEqual(
+            Lesson.objects.all().count(), 2
+        )
