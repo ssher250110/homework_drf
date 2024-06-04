@@ -1,4 +1,7 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_201_CREATED
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 
@@ -64,3 +67,18 @@ class SubscribeCreateAPIView(CreateAPIView):
     serializer_class = SubscribeSerializer
     queryset = Subscribe.objects.all()
     permission_classes = (IsAuthenticated, ~IsModerator,)
+
+    def post(self, *args, **kwargs):
+        user = self.request.user
+        course_id = self.request.data.get('course')
+        course_item = get_object_or_404(Course, pk=course_id)
+        subscribe_item = Subscribe.objects.filter(user=user, course=course_item)
+
+        if subscribe_item:
+            subscribe_item.delete()
+            message = 'Subscription deleted'
+        else:
+            Subscribe.objects.create(user=user, course=course_item)
+            message = 'Subscription added'
+
+        return Response({'Message': message})
