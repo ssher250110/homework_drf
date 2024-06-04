@@ -40,7 +40,7 @@ class LessonTestCase(APITestCase):
         )
 
     def test_lesson_retrieve(self):
-        url = reverse('materials:lesson-retrieve', args=(self.dog.pk,))
+        url = reverse('materials:lesson-retrieve', args=(self.lesson.pk,))
         response = self.client.get(url)
         data = response.json()
 
