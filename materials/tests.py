@@ -2,7 +2,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from materials.models import Lesson, Course
+from materials.models import Lesson, Course, Subscribe
 from users.models import User
 
 
@@ -88,4 +88,40 @@ class LessonTestCase(APITestCase):
         )
         self.assertEqual(
             Lesson.objects.all().count(), 0
+        )
+
+
+class SubscribeTestCase(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create(email='admin@admin.com')
+        self.client.force_authenticate(user=self.user)
+        self.course = Course.objects.create(name='Go')
+
+    def test_subscribe_create(self):
+        url = reverse('materials:subscribe-create')
+        data = {
+            'user': self.user.id,
+            'course': self.course.id
+        }
+        response = self.client.post(url, data)
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK
+        )
+        self.assertEqual(
+            response.json(), {'Message': 'Subscription added'}
+        )
+
+    def test_subscribe_delete(self):
+        url = reverse('materials:subscribe-create')
+        data = {
+            'user': self.user.id,
+            'course': self.course.id
+        }
+        Subscribe.objects.create(course=self.course, user=self.user)
+        response = self.client.post(url, data)
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK
+        )
+        self.assertEqual(
+            response.json(), {'Message': 'Subscription deleted'}
         )
