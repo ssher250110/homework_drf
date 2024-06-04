@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
 from materials.models import Course, Lesson, Subscribe
-from materials.validators import validate_link, SubscribeValidators
+from materials.validators import validate_link
 
 
 class CourseSerializer(serializers.ModelSerializer):
