@@ -62,13 +62,13 @@ class LessonUpdateAPIView(UpdateAPIView):
 
 class LessonDestroyAPIView(DestroyAPIView):
     queryset = Lesson.objects.all()
-    permission_classes = [IsOwner]
+    permission_classes = [IsAuthenticated | IsOwner]
 
 
 class SubscribeCreateAPIView(CreateAPIView):
     serializer_class = SubscribeSerializer
     queryset = Subscribe.objects.all()
-    permission_classes = [IsAuthenticated, ~IsModerator]
+    permission_classes = [IsAuthenticated | ~IsModerator]
 
     def post(self, *args, **kwargs):
         user = self.request.user

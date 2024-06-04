@@ -79,3 +79,13 @@ class LessonTestCase(APITestCase):
         self.assertEqual(
             data.get('name'), 'Go'
         )
+
+    def test_lesson_delete(self):
+        url = reverse('materials:lesson-destroy', args=(self.lesson.pk,))
+        response = self.client.delete(url)
+        self.assertEqual(
+            response.status_code, status.HTTP_204_NO_CONTENT
+        )
+        self.assertEqual(
+            Lesson.objects.all().count(), 0
+        )
