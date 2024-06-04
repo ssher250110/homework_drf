@@ -8,6 +8,13 @@ from materials.validators import validate_link
 class CourseSerializer(serializers.ModelSerializer):
     count_lessons = SerializerMethodField()
     info_lessons = SerializerMethodField()
+    status_subscribe = SerializerMethodField()
+
+    def get_status_subscribe(self, sub):
+        for course in Course.objects.filter(name=sub.name):
+            if Subscribe.objects.filter(user=self.context.get('request').user, course=course).exists():
+                return 'There is a subscription for updating the course'
+            return 'No subscription for course updates'
 
     def get_count_lessons(self, course):
         return Lesson.objects.filter(course=course).count()
