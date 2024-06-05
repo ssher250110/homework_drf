@@ -12,5 +12,5 @@ urlpatterns = [
     path('register/', UserCreateAPIView.as_view(), name='register'),
     path('token/', TokenObtainPairView.as_view(permission_classes=(AllowAny,)), name='token'),
     path('token/refresh/', TokenRefreshView.as_view(permission_classes=(AllowAny,)), name='token-refresh'),
-    path('payment/create', PaymentCreateAPIView.as_view(), name='payment-create')
+    path('payment/create/', PaymentCreateAPIView.as_view(), name='payment-create')
 ]
