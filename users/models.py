@@ -39,6 +39,10 @@ class Payment(models.Model):
                                          help_text='Введите сумму оплаты')
     method_payment = models.CharField(max_length=2, choices=MethodPayment.choices, default=MethodPayment.TRANSFER,
                                       verbose_name='Способ оплаты', help_text='Выберите способ оплаты')
+    session_id = models.CharField(max_length=255, blank=True, null=True, verbose_name='id сессии',
+                                  help_text='Укажите id сессии')
+    link = models.URLField(max_length=400, blank=True, null=True, verbose_name='Ссылка на оплату',
+                           help_text='Укажите ссылку на оплату')
 
     def __str__(self):
         return (f'{self.user} - {self.date_payment} - {self.paid_course if self.paid_course else self.paid_lesson}'
