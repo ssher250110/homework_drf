@@ -24,3 +24,7 @@ class PaymentListAPIView(ListAPIView):
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
     ordering_fields = ('date_payment',)
     filterset_fields = ('paid_course', 'paid_lesson', 'method_payment',)
+
+
+class PaymentCreateAPIView(CreateAPIView):
+    pass
