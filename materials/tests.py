@@ -55,7 +55,8 @@ class LessonTestCase(APITestCase):
     def test_lesson_create(self):
         url = reverse('materials:lesson-create')
         data = {
-            'name': 'scheduler'
+            'name': 'scheduler',
+            'link': 'https://www.youtube.com/watch?v=yHckrS1lvG8'
         }
         response = self.client.post(url, data)
         self.assertEqual(
