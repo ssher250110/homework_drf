@@ -15,11 +15,11 @@ def create_stripe_product(product):
     return stripe.Product.create(name=product)
 
 
-def create_stripe_price(amount):
+def create_stripe_price(amount, product):
     return stripe.Price.create(
         currency="usd",
         unit_amount=amount * 100,
-        product_data={"name": "Payment course"},
+        product_data={"name": product},
     )
 
 
