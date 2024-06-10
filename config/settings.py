@@ -157,3 +157,11 @@ EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', False) == 'True'
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+CELERY_BEAT_SCHEDULE = {
+    "check_last_login_user": {
+        "task": "users.tasks.check_last_login_user",
+        "schedule": timedelta(seconds=5),  # run at every 5th minute
+    },
+}
